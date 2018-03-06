@@ -13,6 +13,6 @@ médico.
 
 ## Proyecto a desarrollarse para el curso de Ingeniería del Software
 
-@@ Desarrollado por
+@Desarrollado @por
 
 ## Danilo Solórzano
