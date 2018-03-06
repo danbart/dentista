@@ -52,6 +52,20 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('ntelefono') ? ' has-error' : '' }}">
+                            <label for="direccion" class="col-md-4 control-label">Direccion de Vivienda</label>
+
+                            <div class="col-md-6">
+                                <input id="direccion" type="text" class="form-control" name="direccion" value="{{ old('ntelefono') }}">
+
+                                @if ($errors->has('direccion'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('direccion') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">Correo Electronico</label>
 
