@@ -5,36 +5,34 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Lista de Usuarios</div>
+                <div class="panel-heading">Lista de Citas para {{$usuarios->nombre}}</div>
 
                 <div class="panel-body">
-                  @if(count($usuarios)>=1)
+                  @if(count($citas)>=1)
                   <?php $contador = 0; ?>
                   <table class="table table-hover">
                       <thead>
                         <tr>
                           <th scope="col">#</th>
-                          <th scope="col">Nombre</th>
-                          <th scope="col">Apellido</th>
-                          <th scope="col">Telefono</th>
+                          <th scope="col">Dia de Consulta</th>
+                          <th scope="col">Descripcion</th>
+                          <th scope="col">Costo Cita</th>
                           {{-- @if(  Auth::user()->role=='admin') --}}
                           <th scope="col">Actualizar</th>
-                          <th scope="col">Citas</th>
-                          <th scope="col">Eiminar</th>
-                            {{-- @endif --}}
+                          <th scope="col">Cancelar Cita</th>
+                          {{-- @endif --}}
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($usuarios as $usuario)
+                        @foreach($citas as $cita)
                         <tr>
                           <th scope="row">{{ $contador+=1 }}</th>
-                          <td>  {{$usuario->nombre }}</td>
-                          <td>  {{$usuario->apellido }}</td>
-                          <td>  {{$usuario->telefono }}</td>
+                          <td>  {{$cita->consulta }}</td>
+                          <td>  {{$cita->descripcion }}</td>
+                          <td>Q  {{$cita->costo_cita }}</td>
                             {{-- @if(  Auth::user()->role=='admin') --}}
                           <td><a href="" class="btn btn-sm btn-success">Actualizar</a> </td>
-                          <td><a href="{{url('/lista-cita/'.$usuario->id)}}" class="btn btn-sm btn-primary">Citas</a> </td>
-                          <td><a href="" class="btn btn-sm btn-danger">Eliminar</a> </td>
+                          <td><a href="" class="btn btn-sm btn-danger">Cancelar</a> </td>
                             {{-- @endif --}}
                         </tr>
                         @endforeach
@@ -42,9 +40,11 @@
                     </table>
                     @else
                     <div class="alert alert-warning" role="alert">
-                      No se encontraron datos
+                      No se encontraron Citas para <span>usuario</span>
                     </div>
                   @endif
+                  <hr>
+                  <a href="{{url('/crear-cita/'.$usuarios->id)}}" class="btn btn-sm btn-primary">Crear Cita</a>
                 </div>
             </div>
         </div>

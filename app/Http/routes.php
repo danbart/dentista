@@ -18,3 +18,19 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/home', 'HomeController@index');
+
+Route::get('/clear-cache', function() {
+    $exitCode = Artisan::call('cache:clear');
+    // return what you want
+});
+//Rutas de Citas
+Route::get('/crear-cita/{user_id}', array(
+  'as' => 'createCita',
+  'middleware' => 'auth',
+  'uses' => 'CitasController@createCita'
+));
+Route::get('/lista-cita/{user_id}', array(
+  'as' => 'listCita',
+  'middleware' => 'auth',
+  'uses' => 'CitasController@getCitas'
+));

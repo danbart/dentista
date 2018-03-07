@@ -11,6 +11,8 @@ class User extends Authenticatable
      *
      * @var array
      */
+     protected $table = 'users';
+
     protected $fillable = [
         'role', 'nombre', 'apellido', 'email', 'password', 'telefono', 'direccion'
     ];
@@ -23,4 +25,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function citas(){
+      return $this->hasMany('App\citas');
+      //hasOne --- es de uno a uno
+    }
 }

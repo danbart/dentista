@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
-
+use App\User;
 class HomeController extends Controller
 {
     /**
@@ -24,6 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+      $usuarios = User::orderBy('id', 'desc')->paginate(5);
+      return view('home', array(
+        'usuarios' => $usuarios
+      ));
     }
 }
