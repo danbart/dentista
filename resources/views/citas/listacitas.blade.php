@@ -5,7 +5,12 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
-                <div class="panel-heading">Lista de Citas para {{$usuarios->nombre}}</div>
+              @if(session('message'))
+              <div class="alert alert-success">
+               {{session('message')}}
+             </div>
+             @endif
+                <div class="panel-heading">Lista de citas para {{$usuarios->nombre.' '.$usuarios->apellido}}</div>
 
                 <div class="panel-body">
                   @if(count($citas)>=1)
@@ -31,7 +36,7 @@
                           <td>  {{$cita->descripcion }}</td>
                           <td>Q  {{$cita->costo_cita }}</td>
                             {{-- @if(  Auth::user()->role=='admin') --}}
-                          <td><a href="" class="btn btn-sm btn-success">Actualizar</a> </td>
+                          <td><a href="{{url('/editar-cita/'.$cita->id)}}" class="btn btn-sm btn-success">Actualizar</a> </td>
                           <td><a href="" class="btn btn-sm btn-danger">Cancelar</a> </td>
                             {{-- @endif --}}
                         </tr>

@@ -34,3 +34,13 @@ Route::get('/lista-cita/{user_id}', array(
   'middleware' => 'auth',
   'uses' => 'CitasController@getCitas'
 ));
+Route::post('/create-cita', array(
+  'as' => 'createCita',
+  'middleware' => 'auth',
+  'uses' => 'CitasController@saveCita'
+));
+Route::get('/editar-cita/{cita_id}', array(
+  'as' => 'editCita',
+  'middleware' => 'auth',
+  'uses' => 'CitasController@editCita'
+));

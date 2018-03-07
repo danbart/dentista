@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 use App\Http\Requests;
 use App\User;
+use App\cita;
 
 class UserController extends Controller
 {
@@ -22,6 +23,5 @@ class UserController extends Controller
     }
 
     public function UpdateUser(){
-
-    }
+      
 }
