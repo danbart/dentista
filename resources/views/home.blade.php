@@ -32,7 +32,7 @@
                           <td>  {{$usuario->apellido }}</td>
                           <td>  {{$usuario->telefono }}</td>
                             {{-- @if(  Auth::user()->role=='admin') --}}
-                          <td><a href="" class="btn btn-sm btn-success">Actualizar</a> </td>
+                          <td><a href="{{url('/editar-usuario/'.$usuario->id)}}" class="btn btn-sm btn-success">Actualizar</a> </td>
                           <td><a href="{{url('/lista-cita/'.$usuario->id)}}" class="btn btn-sm btn-primary">Citas</a> </td>
                           <td><a href="" class="btn btn-sm btn-danger">Eliminar</a> </td>
                             {{-- @endif --}}

@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 
 Route::auth();
 
@@ -48,4 +46,18 @@ Route::post('/update-cita/{user_id}', array(
   'as' => 'updateCita',
   'middleware' => 'auth',
   'uses' => 'CitasController@updateCita'
+));
+
+// seccion de usuario
+
+Route::get('/editar-usuario/{users_id}', array(
+  'as' => 'editUser',
+  'middleware' => 'auth',
+  'uses' => 'UserController@userEdit'
+));
+
+Route::post('/update-user/{user_id}', array(
+  'as' => 'updateUser',
+  'middleware' => 'auth',
+  'uses' => 'UserController@UpdateUser'
 ));

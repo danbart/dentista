@@ -12,7 +12,7 @@
                       {{ csrf_field() }}
                       <input type="hidden" name="user_id" value="{{$cita->id}}">
                     <label for="datecita">Fecha de Cita</label>
-                    <?php $date->setToStringFormat($cita->consulta); ?>
+                    <?php //$date->setToStringFormat($cita->consulta); ?>
                     <input type="date" class="form-control" name="datecita" value="{{$cita->consulta}}">
                     @if ($errors->has('datecita'))
                         <span class="help-block">
