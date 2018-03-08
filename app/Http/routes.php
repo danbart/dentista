@@ -44,3 +44,8 @@ Route::get('/editar-cita/{cita_id}', array(
   'middleware' => 'auth',
   'uses' => 'CitasController@editCita'
 ));
+Route::post('/update-cita/{user_id}', array(
+  'as' => 'updateCita',
+  'middleware' => 'auth',
+  'uses' => 'CitasController@updateCita'
+));

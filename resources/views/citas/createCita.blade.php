@@ -12,10 +12,18 @@
                       {{ csrf_field() }}
                     <input type="hidden" name="user_id" value="{{$usuarios->id}}">
                     <label for="datecita">Fecha de Cita</label>
-                    <input type="datetime-local" class="form-control" name="datecita" value="{{old('datecita')}}">
+
+                    <input type="date" class="form-control" name="datecita" value="{{old('datecita')}}">
                     @if ($errors->has('datecita'))
                         <span class="help-block">
                             <strong>{{ $errors->first('datecita') }}</strong>
+                        </span>
+                    @endif
+                    <label for="timecita">Hora de Cita</label>
+                    <input type="time" class="form-control" name="timecita" value="{{old('timecita')}}">
+                    @if ($errors->has('timecita'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('timecita') }}</strong>
                         </span>
                     @endif
                     <label for="descripcion">Descripcion</label>

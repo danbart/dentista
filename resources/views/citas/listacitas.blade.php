@@ -32,13 +32,19 @@
                         @foreach($citas as $cita)
                         <tr>
                           <th scope="row">{{ $contador+=1 }}</th>
-                          <td>  {{$cita->consulta }}</td>
+                          <td>  {{$cita->consulta.' - '.$cita->horacita }}</td>
                           <td>  {{$cita->descripcion }}</td>
                           <td>Q  {{$cita->costo_cita }}</td>
                             {{-- @if(  Auth::user()->role=='admin') --}}
                           <td><a href="{{url('/editar-cita/'.$cita->id)}}" class="btn btn-sm btn-success">Actualizar</a> </td>
+                          {{-- @inject('service',App\Http\Controllers\CitasController)
+                          @if(CitasController::dateTimeCancel($cita->consulta.' '.$cita->horacita)>=48) --}}
                           <td><a href="" class="btn btn-sm btn-danger">Cancelar</a> </td>
-                            {{-- @endif --}}
+
+                            {{-- @else
+                            <dt>48 horas</dt>
+                            @endif
+                            @endif --}}
                         </tr>
                         @endforeach
                       </tbody>
@@ -50,6 +56,7 @@
                   @endif
                   <hr>
                   <a href="{{url('/crear-cita/'.$usuarios->id)}}" class="btn btn-sm btn-primary">Crear Cita</a>
+                  <a href="{{url('/home')}}" class="btn btn-sm btn-danger">Atras</a>
                 </div>
             </div>
         </div>

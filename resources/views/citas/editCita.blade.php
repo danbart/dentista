@@ -8,15 +8,22 @@
                 <div class="panel-heading">Editar cita: {{$cita->descripcion}}</div>
 
                 <div class="panel-body">
-                  <form  action="{{ url('/update-cita')}}" method="POST">
+                  <form  action="{{ url('/update-cita/'.$cita->id)}}" method="POST">
                       {{ csrf_field() }}
                       <input type="hidden" name="user_id" value="{{$cita->id}}">
                     <label for="datecita">Fecha de Cita</label>
                     <?php $date->setToStringFormat($cita->consulta); ?>
-                    <input type="datetime-local" class="form-control" name="datecita" value="{{$date->format('Y-m-d\TH:i')}}">
+                    <input type="date" class="form-control" name="datecita" value="{{$cita->consulta}}">
                     @if ($errors->has('datecita'))
                         <span class="help-block">
                             <strong>{{ $errors->first('datecita') }}</strong>
+                        </span>
+                    @endif
+                    <label for="timecita">Hora de Cita</label>
+                    <input type="time" class="form-control" name="timecita" value="{{$cita->horacita}}">
+                    @if ($errors->has('timecita'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('timecita') }}</strong>
                         </span>
                     @endif
                     <label for="descripcion">Descripcion</label>

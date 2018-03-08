@@ -24,11 +24,13 @@ class CitasController extends Controller
     }
 
     public function getCitas($user_id){
+      $date = Carbon::now('America/Guatemala');
       $citas = citas::where('user_id', $user_id)->orderBy('consulta', 'asc')->paginate(5);
         $usuarios = User::findOrFail($user_id);
       return view('citas.listacitas', array(
         'citas' => $citas,
-        'usuarios' => $usuarios
+        'usuarios' => $usuarios,
+        'date' => $date
       ));
     }
 
@@ -36,13 +38,15 @@ class CitasController extends Controller
       $validateData = $this->validate($request, [
         'datecita' => 'required',
         'descripcion' => 'required|max:255',
-        'costcita' => 'required|max:30'
+        'costcita' => 'required|max:30',
+        'timecita' => 'required'
       ]);
 
       $cita = new citas();
       $user = \Auth::user();
       $cita->user_id = $request->input('user_id');
       $cita->consulta = $request->input('datecita');
+      $cita->horacita = $request->input('timecita');
       $cita->descripcion = $request->input('descripcion');
       $cita->costo_cita = $request->input('costcita');
 
@@ -53,27 +57,36 @@ class CitasController extends Controller
     }
 
     public function editCita($cita_id){
-      $date = Carbon::now('America/Guatemala');
       $cita = citas::findOrFail($cita_id);
       return view('citas.editCita', array(
-       'cita'=> $cita,
-       'date' => $date
+       'cita'=> $cita
      ));
     }
 
-    public function updateCita($cita_id){
+    public function updateCita($cita_id, Request $request){
       $validateData = $this->validate($request, [
         'datecita' => 'required',
         'descripcion' => 'required|max:255',
-        'costcita' => 'required|max:30'
+        'costcita' => 'required|max:30',
+        'timecita' => 'required'
       ]);
 
-      $cita = new citas();
+      $cita = citas::findOrFail($cita_id);
       $user = \Auth::user();
-      $cita->user_id = $request->input('user_id');
       $cita->consulta = $request->input('datecita');
+      $cita->horacita = $request->input('timecita');
       $cita->descripcion = $request->input('descripcion');
       $cita->costo_cita = $request->input('costcita');
+
+      $cita->update();
+
+      return redirect()->route('listCita', ['user_id' => $cita->user_id])->with(array('message' => 'La cita se ha actualizado'));
+    }
+
+    public function dateTimeCancel($date_consult){
+        $date = Carbon::now('America/Guatemala');
+        $date_cons = Carbon::parse($date_consult);
+        return $date->diffInHours($date_cons);
     }
 
 }
