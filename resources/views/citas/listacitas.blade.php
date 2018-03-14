@@ -51,7 +51,7 @@
                           @if($cita->consulta !=null)
                           <td><a href="" class="btn btn-sm btn-danger">Cancelar</a> </td>
                           @else
-                          <td>Pendiente</td>
+                          <td><a href="" class="btn btn-sm btn-danger" disabled="disabled">Cancelar</a> </td>
                           @endif
                             {{-- @else
                             <dt>48 horas</dt>
