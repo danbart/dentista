@@ -42,7 +42,7 @@
                 <a class="navbar-brand" href="{{ url('/') }}">
                     Clinica Dental
                 </a>
-                <strong style="font-size:10px;"> Beta</strong>
+                <strong style="font-size:10px;" class="badge badge-info">beta</strong>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">

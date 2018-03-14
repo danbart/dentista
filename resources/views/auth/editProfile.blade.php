@@ -111,8 +111,8 @@
                         </div>
 --}}
                         <div class="form-group{{ $errors->has('tipousuario') ? ' has-error' : '' }}">
+                            @if($usuario->role == 'admin')
                             <label for="tipousuario" class="col-md-4 control-label">Tipo de Usuario</label>
-
                             <div class="col-md-6">
                               <select class="form-control" name="tipousuario" >
                                 @if($usuario->role == 'admin')
@@ -130,6 +130,7 @@
                                     </span>
                                 @endif
                             </div>
+                          @endif
                         </div>
 
                         <div class="form-group">
