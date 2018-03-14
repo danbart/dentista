@@ -16,20 +16,32 @@ class UserController extends Controller
 {
     //
     public function index(){
-      $usuarios = User::orderBy('id', 'desc')->paginate(10);
-      return view('home', array(
-        'usuarios' => $usuarios
-      ));
+      $user = \Auth::user();
+      if($user->role != 'admin'|| $user->id==$user_id){
+        $usuarios = User::orderBy('id', 'desc')->paginate(10);
+        return view('home', array(
+          'usuarios' => $usuarios
+        ));
+      }else{
+        return redirect('/');
+      }
     }
 
     public function userEdit($user_id){
-      $usuario = User::findOrFail($user_id);
-      return view('auth.editProfile',array(
-        'usuario' => $usuario
-      ));
+      $user = \Auth::user();
+      if($user->role=='admin'||$user->id==$user_id){
+        $usuario = User::findOrFail($user_id);
+        return view('auth.editProfile',array(
+          'usuario' => $usuario
+        ));
+      }else{
+        return redirect('/');
+      }
     }
 
     public function UpdateUser($user_id, Request $request){
+      $user = \Auth::user();
+      if($user->role=='admin'||$user->id==$user_id){
       $validateUser = $this->validate($request, [
         'name' => 'required|max:100',
         'surname' => 'required|max:100',
@@ -49,6 +61,9 @@ class UserController extends Controller
       $usuario->update();
 
       return redirect('/home')->with(array('message' => 'El usuario se ha actualizado correctamente'));
+    }else{
+      return redirect('/');
+    }
 
     }
 

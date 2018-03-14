@@ -24,9 +24,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-      $usuarios = User::orderBy('id', 'desc')->paginate(5);
-      return view('home', array(
-        'usuarios' => $usuarios
-      ));
+      $user = \Auth::user();
+      if($user->role == 'admin'){
+        $usuarios = User::orderBy('id', 'desc')->paginate(10);
+        return view('home', array(
+          'usuarios' => $usuarios
+        ));
+      }else{
+        return redirect('/lista-cita/'.$user->id);
+      }
     }
 }
