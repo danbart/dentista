@@ -64,6 +64,7 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                              <li> <a href="{{url('/editar-usuario/'.Auth::user()->id)}}">Editar Perfil</a> </li>
                                 <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Salir</a></li>
                             </ul>
                         </li>
