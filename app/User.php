@@ -25,9 +25,4 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-    public function citas(){
-      return $this->hasMany('App\citas');
-      //hasOne --- es de uno a uno
-    }
 }

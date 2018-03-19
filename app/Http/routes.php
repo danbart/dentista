@@ -11,6 +11,7 @@
 |
 */
 
+
 Route::get('/', 'HomeController@index');
 
 Route::auth();
@@ -46,6 +47,11 @@ Route::post('/update-cita/{user_id}', array(
   'as' => 'updateCita',
   'middleware' => 'auth',
   'uses' => 'CitasController@updateCita'
+));
+Route::get('/todas-citas', array(
+  'as' => 'allCitas',
+  'middleware' => 'auth',
+  'uses' => 'CitasController@allCitas'
 ));
 
 // seccion de usuario

@@ -47,10 +47,12 @@
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
+                @if(Auth::user()->role == 'admin')
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/home') }}">Inicio</a></li>
+                    <li><a href="{{ url('/home') }}">Usuarios</a></li>
+                    <li><a href="{{ url('/todas-citas') }}">Citas</a></li>
                 </ul>
-
+                @endif
                 <!-- Right Side Of Navbar -->
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->

@@ -10,7 +10,7 @@ class citas extends Model
     protected  $table = 'citas';
     //indica la relacion de las tablas
     public function user(){
-      return $this->belongsTo('App\User', 'users_id');
+      return $this->belongsTo('App\User');
     }
 
 }

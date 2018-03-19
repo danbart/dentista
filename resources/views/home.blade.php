@@ -45,6 +45,9 @@
                       No se encontraron datos
                     </div>
                   @endif
+                    <div class="clearfix"></div>
+                      {{$usuarios->links()}}
+                    </div>
                 </div>
             </div>
         </div>

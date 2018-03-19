@@ -27,7 +27,8 @@ class CitasController extends Controller
       $user = \Auth::user();
       if($user->role=='admin'||$user->id==$user_id){
       $date = Carbon::now('America/Guatemala');
-      $citas = citas::where('user_id', $user_id)->orderBy('consulta', 'asc')->paginate(5);
+      $citas = citas::where('user_id', $user_id)->orderBy('consulta', 'asc')->orderBy('horacita', 'asc')->paginate(5);
+      // $citas = citas::where('user_id = ? and consulta > ?', [$user_id, date('Y-m-d')])->orderBy('consulta', 'asc')->orderBy('horacita', 'asc')->paginate(5);
         $usuarios = User::findOrFail($user_id);
       return view('citas.listacitas', array(
         'citas' => $citas,
@@ -120,6 +121,19 @@ class CitasController extends Controller
         $date = Carbon::now('America/Guatemala');
         $date_cons = Carbon::parse($date_consult);
         return $date->diffInHours($date_cons);
+    }
+
+    public function allCitas()
+    {
+      $user = \Auth::user();
+      if($user->role=='admin'){
+      $citas = citas::orderBy('consulta', 'asc')->orderBy('horacita', 'asc')->where('consulta','>', date('Y-m-d'))->paginate(10);
+      return view('citas.allcitas', array(
+        'citas' => $citas,
+      ));
+      }else{
+      return redirect('/');
+    }
     }
 
 }
