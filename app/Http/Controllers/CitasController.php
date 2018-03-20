@@ -27,7 +27,7 @@ class CitasController extends Controller
       $user = \Auth::user();
       if($user->role=='admin'||$user->id==$user_id){
       $date = Carbon::now('America/Guatemala');
-      $citas = citas::where('user_id', $user_id)->orderBy('consulta', 'asc')->orderBy('horacita', 'asc')->paginate(5);
+      $citas = citas::where('user_id', $user_id)->where('consulta', '>=', date('Y-m-d'))->whereRaw('baja_consulta is null')->orderBy('consulta', 'asc')->orderBy('horacita', 'asc')->paginate(5);
       // $citas = citas::where('user_id = ? and consulta > ?', [$user_id, date('Y-m-d')])->orderBy('consulta', 'asc')->orderBy('horacita', 'asc')->paginate(5);
         $usuarios = User::findOrFail($user_id);
       return view('citas.listacitas', array(
@@ -70,6 +70,7 @@ class CitasController extends Controller
           ]);
           $cita->user_id = $user_id;
           $cita->descripcion = $request->input('descripcion');
+          $cita->consulta = date('Y-m-d');
           $message = array(
             'message' => 'La cita fue solicitada con exito'
           );
@@ -123,17 +124,32 @@ class CitasController extends Controller
         return $date->diffInHours($date_cons);
     }
 
-    public function allCitas()
-    {
+    public function allCitas() {
       $user = \Auth::user();
       if($user->role=='admin'){
-      $citas = citas::orderBy('consulta', 'asc')->orderBy('horacita', 'asc')->where('consulta','>', date('Y-m-d'))->paginate(10);
+      $citas = citas::where('consulta','>=', date('Y-m-d'))->whereRaw('baja_consulta is null')->orderBy('consulta', 'asc')->orderBy('horacita', 'asc')->paginate(10);
       return view('citas.allcitas', array(
         'citas' => $citas,
       ));
       }else{
-      return redirect('/');
+      return redirect('/home');
+      }
     }
+
+    public function cancelCitaCliente($cita_id){
+      $cita = citas::findOrFail($cita_id);
+      $cita->baja_consulta = new \DateTime("now");
+      $cita->update();
+
+      return redirect()->route('listCita', ['user_id' => $cita->user_id])->with(array('message' => 'La cita se ha Cancelado'));
+    }
+
+    public function cancelCita($cita_id){
+      $cita = citas::findOrFail($cita_id);
+      $cita->baja_consulta = new \DateTime("now");
+      $cita->update();
+
+      return redirect()->route('allCitas')->with(array('message' => 'La cita se ha Cancelado'));
     }
 
 }

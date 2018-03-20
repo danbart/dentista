@@ -58,6 +58,17 @@ class UserController extends Controller
       $usuario->telefono = $request->input('ntelefono');
       $usuario->direccion = $request->input('direccion');
 
+      if($request->input('alta_usuarios')){
+        $usuario->alta_usuario =  new \DateTime("now");
+      }else{
+          $usuario->alta_usuario = null;
+      }
+      if($request->input('baja_usuarios')){
+        $usuario->baja_usuario =  new \DateTime("now");
+      }else{
+          $usuario->baja_usuario = null;
+      }
+
       $usuario->update();
 
       return redirect('/home')->with(array('message' => 'El usuario se ha actualizado correctamente'));

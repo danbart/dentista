@@ -32,7 +32,7 @@
                         <tr>
                           <th scope="row">{{ $contador+=1 }}</th>
                           @if($cita->consulta !=null)
-                          <td> {{$cita->consulta.' '.$cita->horacita }}</td>
+                          <td> {{$cita->consulta.' - '.$cita->horacita }}</td>
                           @else
                           <td>La cita esta pendiente de fecha </td>
                           @endif
@@ -46,19 +46,15 @@
                             @if(  Auth::user()->role=='admin')
                           <td><a href="{{url('/editar-cita/'.$cita->id)}}" class="btn btn-sm btn-success">Actualizar</a> </td>
                           @endif
-                          {{-- @inject('service',App\Http\Controllers\CitasController)
-                          @if(CitasController::dateTimeCancel($cita->consulta.' '.$cita->horacita)>=48) --}}
-                          @if($cita->consulta !=null)
+                          @if($cita->horacita !=null)
                           @if(\FormatTime::LongTimeFilter($cita->consulta,$cita->horacita)>48)
-                          <td><a href="" class="btn btn-sm btn-danger">Cancelar</a> </td>
+                          <td><a href="{{url('/cancel-cita-all/'.$cita->id)}}" class="btn btn-sm btn-danger">Cancelar</a> </td>
                           @else
-                          <td><a href="" class="btn btn-sm btn-danger" disabled="disabled">Cancelar</a> </td>
+                          <td><a class="btn btn-sm btn-danger" disabled="disabled">{{\FormatTime::LongTimeFilter($cita->consulta,$cita->horacita) }} horas</a> </td>
                           @endif
+                          @else
+                            <td><a class="btn btn-sm btn-danger" disabled="disabled">Cancelar</a></td>
                           @endif
-                            {{-- @else
-                            <dt>48 horas</dt>
-                            @endif
-                            @endif --}}
                         </tr>
                         @endforeach
                       </tbody>
@@ -71,8 +67,8 @@
                   {{-- <hr>
                   <a href="{{url('/crear-cita/'.$usuarios->id)}}" class="btn btn-sm btn-primary">
                     Crear Cita
-                  </a> --}}
-                  <a href="{{url('/home')}}" class="btn btn-sm btn-danger">Atras</a>
+                  </a>
+                  <a href="{{url('/home')}}" class="btn btn-sm btn-danger">Atras</a> --}}
                       <div class="clearfix"></div>
                     {{$citas->links()}}
                   </div>

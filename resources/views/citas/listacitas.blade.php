@@ -46,17 +46,16 @@
                             @if(  Auth::user()->role=='admin')
                           <td><a href="{{url('/editar-cita/'.$cita->id)}}" class="btn btn-sm btn-success">Actualizar</a> </td>
                           @endif
-                          {{-- @inject('service',App\Http\Controllers\CitasController)
-                          @if(CitasController::dateTimeCancel($cita->consulta.' '.$cita->horacita)>=48) --}}
-                          @if($cita->consulta !=null)
-                          <td><a href="" class="btn btn-sm btn-danger">Cancelar</a> </td>
-                          @else
-                          <td><a href="" class="btn btn-sm btn-danger" disabled="disabled">Cancelar</a> </td>
-                          @endif
-                            {{-- @else
-                            <dt>48 horas</dt>
+                            @if($cita->horacita !=null)
+                                  @if(\FormatTime::LongTimeFilter($cita->consulta,$cita->horacita)>48)
+                                  <td><a href="{{url('/cancel-cita/'.$cita->id)}}" class="btn btn-sm btn-danger">Cancelar</a> </td>
+                                  @else
+                                  <td><a class="btn btn-sm btn-danger" disabled="disabled">
+                                    {{\FormatTime::LongTimeFilter($cita->consulta,$cita->horacita)}} Horas</a></td>
+                                  @endif
+                              @else
+                                <td><a class="btn btn-sm btn-danger" disabled="disabled">Cancelar</a></td>
                             @endif
-                            @endif --}}
                         </tr>
                         @endforeach
                       </tbody>

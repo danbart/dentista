@@ -132,7 +132,34 @@
                             </div>
                           @endif
                         </div>
+                        @if(Auth::user()->role == 'admin')
+                        <div class="form-group">
+                            <label for="alta-usuarios" class="col-md-4 control-label">Caso Usuario</label>
 
+                            <div class="col-md-6">
+                              @if($usuario->alta_usuario)
+                                <label><input id="alta-usuarios" type="checkbox" checked data-toggle="toggle"  name="alta_usuarios">
+                                  Caso Concluido <i>{{$usuario->alta_usuario}}</i> </label>
+                                  @else
+                                  <label><input id="alta-usuarios" type="checkbox" data-toggle="toggle"  name="alta_usuarios">
+                                    Caso Concluido <i>{{$usuario->alta_usuario}}</i> </label>
+                                  @endif
+                                  <br>
+                                  @if($usuario->baja_usuario)
+                                <label><input id="alta-usuarios" type="checkbox" checked data-toggle="toggle"  name="baja_usuarios">
+                                  Baja Usuario <i>{{$usuario->baja_usuario}}</i></label>
+                                  @else
+                                <label><input id="alta-usuarios" type="checkbox"  data-toggle="toggle"  name="baja_usuarios">
+                                  Baja Usuario <i>{{$usuario->baja_usuario}}</i></label>
+                                  @endif
+                                @if ($errors->has('password_confirmation'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                          </div>
+                          @endif
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">Actualizar</button>

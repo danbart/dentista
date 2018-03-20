@@ -12,7 +12,10 @@
 */
 
 
-Route::get('/', 'HomeController@index');
+Route::get('/', array(
+  'as' => 'allCitas',
+  'middleware' => 'auth',
+  'uses' => 'CitasController@allCitas'));
 
 Route::auth();
 
@@ -53,7 +56,16 @@ Route::get('/todas-citas', array(
   'middleware' => 'auth',
   'uses' => 'CitasController@allCitas'
 ));
-
+Route::get('/cancel-cita/{cita_id}', array(
+  'as' => 'cancelCita',
+  'middleware' => 'auth',
+  'uses' => 'CitasController@cancelCitaCliente'
+));
+Route::get('/cancel-cita-all/{cita_id}', array(
+  'as' => 'cancelCita',
+  'middleware' => 'auth',
+  'uses' => 'CitasController@cancelCita'
+));
 // seccion de usuario
 
 Route::get('/editar-usuario/{users_id}', array(
