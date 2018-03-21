@@ -17,19 +17,26 @@ class CitasController extends Controller
 {
     //
     public function createCita($user_id){
+      $user = \Auth::user();
         $usuarios = User::find($user_id);
+  if($user->role=='admin'||$user->id==$user_id)
+    if($usuarios->role!='admin'){
       return view('citas.createCita', array(
         'usuarios' => $usuarios
       ));
+    }else{
+      return redirect('/');
     }
-
+}
     public function getCitas($user_id){
       $user = \Auth::user();
       if($user->role=='admin'||$user->id==$user_id){
+      $usuarios = User::findOrFail($user_id);
+      if($usuarios->role!='admin'){
       $date = Carbon::now('America/Guatemala');
       $citas = citas::where('user_id', $user_id)->where('consulta', '>=', date('Y-m-d'))->whereRaw('baja_consulta is null')->orderBy('consulta', 'asc')->orderBy('horacita', 'asc')->paginate(5);
       // $citas = citas::where('user_id = ? and consulta > ?', [$user_id, date('Y-m-d')])->orderBy('consulta', 'asc')->orderBy('horacita', 'asc')->paginate(5);
-        $usuarios = User::findOrFail($user_id);
+
       return view('citas.listacitas', array(
         'citas' => $citas,
         'usuarios' => $usuarios,
@@ -38,6 +45,9 @@ class CitasController extends Controller
       }else{
       return redirect('/');
     }
+  }else{
+  return redirect('/todas-citas');
+}
     }
 
     public function saveCita(Request $request){

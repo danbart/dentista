@@ -54,6 +54,7 @@
                 <ul class="nav navbar-nav">
                     <li><a href="{{ url('/home') }}">Usuarios</a></li>
                     <li><a href="{{ url('/todas-citas') }}">Citas</a></li>
+                    <li><a href="{{ url('/register') }}">Registrar</a></li>
                 </ul>
                 @endif
                  @endif

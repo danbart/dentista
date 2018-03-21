@@ -30,14 +30,18 @@
                           <td>  {{$usuario->apellido }}</td>
                           <td>  {{$usuario->telefono }}</td>
                           <td><a href="{{url('/editar-usuario/'.$usuario->id)}}" class="btn btn-sm btn-success">Actualizar</a> </td>
+                          @if($usuario->role!='admin')
                           @if($usuario->alta_usuario ==null)
                             @if($usuario->baja_usuario ==null)
                             <td><a href="{{url('/lista-cita/'.$usuario->id)}}" class="btn btn-sm btn-primary">Citas</a> </td>
                             @else
-                            <td> <span>Usuario suspendido</span> </td>
+                            <td> <span class="label label-warning">Caso Incompleto</span> </td>
                             @endif
                             @else
-                            <td> <span>Alta Usuario</span> </td>
+                            <td> <span class="label label-info">Caso Concluido</span> </td>
+                          @endif
+                          @else
+                            <td> <span class="label label-primary">Administrador</span> </td>
                           @endif
                           <td><a href="" class="btn btn-sm btn-danger">Eliminar</a> </td>
                         </tr>

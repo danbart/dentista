@@ -50,7 +50,7 @@
                           @if(\FormatTime::LongTimeFilter($cita->consulta,$cita->horacita)>48)
                           <td><a href="{{url('/cancel-cita-all/'.$cita->id)}}" class="btn btn-sm btn-danger">Cancelar</a> </td>
                           @else
-                          <td><a class="btn btn-sm btn-danger" disabled="disabled">{{\FormatTime::LongTimeFilter($cita->consulta,$cita->horacita) }} horas</a> </td>
+                          <td><a href="{{url('/cancel-cita-all/'.$cita->id)}}" class="btn btn-sm btn-danger" >Cancelar {{\FormatTime::LongTimeFilter($cita->consulta,$cita->horacita) }} horas</a> </td>
                           @endif
                           @else
                             <td><a class="btn btn-sm btn-danger" disabled="disabled">Cancelar</a></td>
