@@ -8,7 +8,11 @@
             <div class="intro-text">
                 <div class="intro-lead-in">Tu sonrisa nuestro compromiso</div>
                 <div class="intro-heading">Clinica Dental Sarros</div>
-                <a href="#services" class="page-scroll btn btn-xl">Reservar Cita</a>
+                @if (Auth::guest())
+                <a href="{{url('/register')}}" class="page-scroll btn btn-xl btn-primary ">Reservar Cita</a>
+                @else
+                <a href="{{url('crear-cita/'.Auth::user()->id)}}" class="page-scroll btn btn-xl btn-primary ">Reservar Cita</a>
+                @endif
             </div>
         </div>
     </header>

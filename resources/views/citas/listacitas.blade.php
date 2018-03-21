@@ -62,7 +62,7 @@
                     </table>
                     @else
                     <div class="alert alert-warning" role="alert">
-                      No se encontraron Citas para <span>usuario</span>
+                      No se encontraron Citas para <span>{{$usuarios->nombre.' '.$usuarios->apellido}}</span>
                     </div>
                   @endif
                   <hr>
