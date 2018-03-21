@@ -12,10 +12,9 @@
 */
 
 
-Route::get('/', array(
-  'as' => 'allCitas',
-  'middleware' => 'auth',
-  'uses' => 'CitasController@allCitas'));
+Route::get('/', function(){
+  return view('welcome');
+});
 
 Route::auth();
 
