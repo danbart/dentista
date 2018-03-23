@@ -5,6 +5,11 @@
     <div class="row">
         <div class="col-md-10 col-md-offset-1">
             <div class="panel panel-default">
+              @if(session('message'))
+              <div class="alert alert-success">
+               {{session('message')}}
+             </div>
+             @endif
                 <div class="panel-heading">Lista de Usuarios</div>
 
                 <div class="panel-body">
@@ -43,7 +48,7 @@
                           @else
                             <td> <span class="label label-primary">Administrador</span> </td>
                           @endif
-                          <td><a href="" class="btn btn-sm btn-danger">Eliminar</a> </td>
+                          <td><a href="{{url('delete-user/'.$usuario->id)}}" class="btn btn-sm btn-danger">Eliminar</a> </td>
                         </tr>
                         @endforeach
                       </tbody>

@@ -60,6 +60,11 @@ Route::get('/cancel-cita/{cita_id}', array(
   'middleware' => 'auth',
   'uses' => 'CitasController@cancelCitaCliente'
 ));
+Route::get('/up-cita/{cita_id}', array(
+  'as' => 'upCita',
+  'middleware' => 'auth',
+  'uses' => 'CitasController@atendioCita'
+));
 Route::get('/cancel-cita-all/{cita_id}', array(
   'as' => 'cancelCita',
   'middleware' => 'auth',
@@ -77,4 +82,20 @@ Route::post('/update-user/{user_id}', array(
   'as' => 'updateUser',
   'middleware' => 'auth',
   'uses' => 'UserController@UpdateUser'
+));
+
+Route::get('/registrar-usuario', array(
+  'as' => 'regUserAdmin',
+  'middleware' => 'auth',
+  'uses' => 'UserController@regUserAdmin'
+));
+Route::post('/registrar-usuario', array(
+  'as' => 'regUserAdmin',
+  'middleware' => 'auth',
+  'uses' => 'UserController@regUserAdminPost'
+));
+Route::get('/delete-user/{user_id}', array(
+  'as' => 'deletUser',
+  'middleware' => 'auth',
+  'uses' => 'UserController@deleteUser'
 ));

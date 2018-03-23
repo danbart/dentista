@@ -76,7 +76,7 @@
                     @else
                     <li><a href="{{ url('/todas-citas') }}">Citas</a></li>
                     @endif
-                    <li><a href="{{ url('/register') }}">Registrar</a></li>
+                    <li><a href="{{ url('/registrar-usuario') }}">Registrar</a></li>
                 </ul>
                 @else
                 <ul class="nav navbar-nav">

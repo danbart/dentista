@@ -44,9 +44,13 @@
                           <td>Pendiente</td>
                           @endif
                             @if(  Auth::user()->role=='admin')
+                            @if($cita->alta_consulta == null)
                           <td><a href="{{url('/editar-cita/'.$cita->id)}}" class="btn btn-sm btn-success">Actualizar</a> </td>
+                          @else
+                          <td><a disabled="disabled" class="btn btn-sm btn-success">Actualizar</a> </td>
                           @endif
-                            @if($cita->horacita !=null)
+                          @endif
+                            @if($cita->horacita !=null && $cita->alta_consulta == null && $usuarios->alta_usuario == null && $usuarios->baja_usuario == null)
                                   @if(\FormatTime::LongTimeFilter($cita->consulta,$cita->horacita)>48)
                                   <td><a href="{{url('/cancel-cita/'.$cita->id)}}" class="btn btn-sm btn-danger">Cancelar</a> </td>
                                   @else
@@ -66,13 +70,21 @@
                     </div>
                   @endif
                   <hr>
-                  <a href="{{url('/crear-cita/'.$usuarios->id)}}" class="btn btn-sm btn-primary">
-                    @if(  Auth::user()->role=='admin')
-                    Crear Cita
-                    @else
-                    Solicitar Cita
+                  @if($usuarios->alta_usuario == null)
+                    @if($usuarios->baja_usuario == null)
+                      <a href="{{url('/crear-cita/'.$usuarios->id)}}" class="btn btn-sm btn-primary">
+                        @if(  Auth::user()->role=='admin')
+                          Crear Cita
+                          @else
+                          Solicitar Cita
+                        @endif
+                      </a>
+                      @else
+                    <span>Paciente dado de baja Contacte con el Administrador</span> <a href="#">ingenieriaUMG@gmail.com</a>
                     @endif
-                  </a>
+                  @else
+                  <span>Caslo concluido Contacte con el Administrador si decea otra cita</span>
+                  @endif
                   @if(  Auth::user()->role=='admin')
                   <a href="{{url('/home')}}" class="btn btn-sm btn-danger">Atras</a>
                   @endif

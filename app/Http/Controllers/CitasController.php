@@ -19,11 +19,23 @@ class CitasController extends Controller
     public function createCita($user_id){
       $user = \Auth::user();
         $usuarios = User::find($user_id);
-  if($user->role=='admin'||$user->id==$user_id)
-    if($usuarios->role!='admin'){
-      return view('citas.createCita', array(
-        'usuarios' => $usuarios
-      ));
+    if($usuarios->alta_usuario == null){
+        if($usuarios->baja_usuario == null){
+
+          if(($user->role=='admin'||$user->id==$user_id)){
+            if($usuarios->role!='admin'){
+              return view('citas.createCita', array(
+                'usuarios' => $usuarios
+              ));
+            }else{
+              return redirect('/');
+            }
+          }else{
+            return redirect('/');
+          }
+        }else{
+          return redirect('/');
+        }
     }else{
       return redirect('/');
     }
@@ -94,11 +106,19 @@ class CitasController extends Controller
 
     public function editCita($cita_id){
       $user = \Auth::user();
-      if($user->role=='admin' ){
       $cita = citas::findOrFail($cita_id);
-      return view('citas.editCita', array(
-       'cita'=> $cita
-     ));
+      if($user->role=='admin' ){
+        if($cita->alta_consulta== null){
+          if($cita->baja_consulta== null){
+          return view('citas.editCita', array(
+           'cita'=> $cita
+         ));
+           }else{
+           return redirect('/');
+         }
+       }else{
+       return redirect('/');
+     }
        }else{
        return redirect('/');
      }
@@ -129,7 +149,6 @@ class CitasController extends Controller
     }
 
     public function dateTimeCancel($date_consult){
-        $date = Carbon::now('America/Guatemala');
         $date_cons = Carbon::parse($date_consult);
         return $date->diffInHours($date_cons);
     }
@@ -160,6 +179,14 @@ class CitasController extends Controller
       $cita->update();
 
       return redirect()->route('allCitas')->with(array('message' => 'La cita se ha Cancelado'));
+    }
+
+    public function atendioCita($cita_id){
+      $cita = citas::findOrFail($cita_id);
+      $cita->alta_consulta = new \DateTime("now");
+      $cita->update();
+
+      return redirect()->route('allCitas')->with(array('message' => 'La cita se Atendio Correctamente'));
     }
 
 }

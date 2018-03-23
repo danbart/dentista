@@ -24,6 +24,7 @@
                           <th scope="col">Descripcion</th>
                           <th scope="col">Costo Cita</th>
                           <th scope="col">Actualizar</th>
+                          <th scope="col">Cita Atendida</th>
                           <th scope="col">Cancelar Cita</th>
                         </tr>
                       </thead>
@@ -43,10 +44,13 @@
                           @else
                           <td>Pendiente</td>
                           @endif
-                            @if(  Auth::user()->role=='admin')
                           <td><a href="{{url('/editar-cita/'.$cita->id)}}" class="btn btn-sm btn-success">Actualizar</a> </td>
+                          @if(  $cita->alta_consulta == null)
+                          <td><a href="{{url('/up-cita/'.$cita->id)}}" class="btn btn-sm btn-primary">Atendida</a> </td>
+                          @else
+                          <td><span class="label label-primary">Cita Atendida</span> <i class="glyphicon glyphicon-ok" style="font-size: 14px !important;"></i></td>
                           @endif
-                          @if($cita->horacita !=null)
+                          @if($cita->horacita !=null && $cita->alta_consulta == null)
                           @if(\FormatTime::LongTimeFilter($cita->consulta,$cita->horacita)>48)
                           <td><a href="{{url('/cancel-cita-all/'.$cita->id)}}" class="btn btn-sm btn-danger">Cancelar</a> </td>
                           @else
